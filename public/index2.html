@@ -10,35 +10,39 @@
 
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-<link rel="stylesheet" href="/style.css">
 </head>
 <body>
-<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog">
-        <div class="loginmodal-container">
-            <h1>Enter Username</h1><br>
-            <form id="username_form">
-                <input type="text" name="user" placeholder="Username" id="username_entry">
-                <p id="login_error_msg"></p>
-                <input type="submit" name="login" class="login loginmodal-submit" value="Login">
-            </form>
-        </div>
-    </div>
-</div>
-<div class="menu">
-    <div class="name">Papri chat</div>
-    <div class="members" id="members"></div>
-</div>
-<ol class="chat"></ol>
-<div class="typezone">
-    <form id="chatForm"> <input class="textarea" type="text" placeholder="Type here!" id="chatText"/><input type="submit" class="send" value=""/></form>
-</div>
+<h1 id="msg"></h1>
+<form id="chatForm" action="#">
+    <input type="text" id="chatText">
+    <input type="submit" value="send">
+</form>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 <script src="/socket.io/socket.io.js"></script>
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-dateFormat/1.0/jquery.dateFormat.min.js" integrity="sha256-YVu3IT7nGTfxru7MQiv/TgOnffsbPuvXHRXuw1KzxWc=" crossorigin="anonymous"></script>
-<script src="/custom.js"></script>
+<script>
+    var socket = io('http://10.142.239.59:3000');
+    socket.on('message-from-server', function (evt) {
+        $("#msg").html(evt.greeting);
+    });
+    socket.emit("message-from-client", {
+        greeting: 'Hello from Client'
+    });
+    $("#chatForm").submit(function (event) {
+        let chatText = $('#chatText').val();
+        socket.emit("chat-to-server", {
+            text: $('#chatText').val()
+        });
+        $("#msg").append("<br/>" + chatText);
+        $('#chatText').val('');
+        $('#chatText').focus();
+        event.preventDefault();
+    });
+    socket.on('chat-to-client', function (evt) {
+        $("#msg").append("<br/>" + evt.text);
+    });
+</script>
 </body>
 </html>
