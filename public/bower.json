@@ -1,0 +1,21 @@
+{
+  "name": "papri_chat",
+  "homepage": "https://github.com/driptaroop/papri_chat",
+  "authors": [
+    "Driptaroop Das <drdas@cisco.com>"
+  ],
+  "description": "a bogus chat application",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "private": true,
+  "dependencies": {
+    "jQuery": "^3.2.1"
+  }
+}

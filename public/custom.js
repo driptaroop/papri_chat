@@ -1,5 +1,5 @@
 //SOCKET IO START
-var socket = io('http://10.142.239.82:3000');
+var socket = io('http://localhost:3000');
 socket.on('message-from-server', function (evt) {
     $("#msg").html(evt.greeting);
 });
@@ -25,10 +25,9 @@ socket.on('change-user-count', function (evt) {
 
 //JQUERY START
 var username = "";
-emojify.setConfig({img_dir : 'images'});
+emojione.ascii = true;
 $(document).ready(function() {
     getUserName();
-    makeEmoji();
     $("#chatForm").submit(function (event) {
         let chatText = $('#chatText').val();
         if (chatText.trim() !== '') {
@@ -71,16 +70,15 @@ var getUserName = function () {
     });
 };
 let appendToChat = function (details) {
-    let append = '<br/> <li class="' + details.user + '"> <div class="msg"> <div class="user">' + details.username + '</div> <p>' + details.text + '</p> <time>'+ $.format.date(details.time, 'hh:mm:ss a') +'</time> </div> </li>';
-    $(append).hide().appendTo('#chatArea').fadeIn(500);
+    let append = '<br/> <li class="' + details.user + '"> <div class="msg"> <div class="user">' + details.username + '</div> <p> ' + details.text + ' </p> <time>'+ $.format.date(details.time, 'hh:mm:ss a') +'</time> </div> </li>';
+    $(makeEmoji(append)).hide().appendTo('#chatArea').fadeIn(500);
     goToEndOfChat();
-    makeEmoji();
 };
 let goToEndOfChat = function () {
     window.scrollTo(0,document.body.scrollHeight);
     //$('.chat').animate({scrollTop: $('.chat li:last-child').offset().top + 30});
 };
-let makeEmoji = function () {
-    emojify.run($('#chatArea')[0]);
+let makeEmoji = function (innerHtml) {
+    return emojione.toImage(innerHtml);
 }
 //JQUERY END
