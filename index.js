@@ -18,7 +18,7 @@ io.on('connection', function (socket) {
         console.log(msg.greeting);
     });
     socket.on('disconnect', function () {
-       console.log(socket.id + " disconnected");
+       console.log(userMap[socket.id] + " disconnected");
        delete userMap[socket.id];
        let activeUsers = getActiveUsers();
        io.sockets.emit('change-user-count', {
