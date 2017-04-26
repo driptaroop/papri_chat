@@ -16,6 +16,9 @@
   ],
   "private": true,
   "dependencies": {
-    "jQuery": "^3.2.1"
+    "jQuery": "^3.2.1",
+    "bootstrap": "^3.3.7",
+    "jquery-dateFormat": "^1.0.2",
+    "emojione": "3.0.1"
   }
 }

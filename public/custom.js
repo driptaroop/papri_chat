@@ -26,7 +26,12 @@ socket.on('change-user-count', function (evt) {
 //JQUERY START
 var username = "";
 emojione.ascii = true;
+window.emojioneVersion = "3.0.0";
 $(document).ready(function() {
+    // $('#chatText').emojioneArea({
+    //     pickerPosition: "bottom",
+    //     tonesStyle: "radio"
+    // });
     getUserName();
     $("#chatForm").submit(function (event) {
         let chatText = $('#chatText').val();
