@@ -25,11 +25,11 @@ socket.on('change-user-count', function (evt) {
 
 //JQUERY START
 var username = "";
-emojione.ascii = true;
-window.emojioneVersion = "3.0.0";
+//window.emojioneVersion = "3.0.0";
 $(document).ready(function() {
+    emojione.ascii = true;
     // $('#chatText').emojioneArea({
-    //     pickerPosition: "bottom",
+    //     pickerPosition: "top",
     //     tonesStyle: "radio"
     // });
     getUserName();
