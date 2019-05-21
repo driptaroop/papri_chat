@@ -8,6 +8,7 @@ let userMap = {};
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 io.on('connection', function (socket) {
     let username = "";
     console.log("connection established");
